@@ -17,19 +17,18 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        if let userName = userName {
-//                    welcomeLabel.text = "Welcome, \(userName)!\n "
-//                }
-//        else {
             welcomeLabel.text = "Welcome, \(userName ?? "Incognito")!"
-//    }
+        
+        self.navigationItem.setHidesBackButton(true, animated: true)
+
     }
     
     @IBAction func profileButton(_ sender: Any) {
-        let profileVC = ProfileViewController()
-
-                //present(testVC, animated: true, completion: nil)
-        navigationController?.pushViewController(profileVC, animated: true)
+//        let profileVC = ProfileViewController()
+//
+//        present(profileVC, animated: true, completion: nil)
+    //  navigationController?.pushViewController(profileVC, animated: true)
+       // performSegue(withIdentifier: "profileVC", sender: nil)
         
     }
     
@@ -43,31 +42,4 @@ class WelcomeViewController: UIViewController {
 
 }
 
-//class MainViewController: UIViewController {
-//
-//    @IBOutlet weak var welcomeLabel: UILabel!
-//    @IBOutlet weak var profileButton: UIButton!
-//    @IBOutlet weak var classButton: UIButton!
-//
-//    var userName: String!
-//    var userPassword: String?
-//
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        if let userName = userName {
-//            welcomeLabel.text = "Welcome, \(userName)!\n "
-//        }
-//        welcomeLabel.text = "Welcome, \(userName ?? "Incognito")!"
-//    }
-//
-//    //при нажатии переход на profileVC
-//    @IBAction func profileButtonPressed(_ sender: Any) {
-//        performSegue(withIdentifier: "profileVC", sender: nil)
-//    }
-//    //при нажатии переход на classVC
-//    @IBAction func classButtonPressed(_ sender: Any) {
-//        performSegue(withIdentifier: "classVC", sender: nil)
-//    }
-//
-//}
+

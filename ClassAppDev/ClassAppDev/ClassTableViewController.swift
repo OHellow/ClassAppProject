@@ -51,7 +51,7 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           performSegue(withIdentifier: "profileVC", sender: nil)
+           performSegue(withIdentifier: "profileStudentVC", sender: nil)
        }
     
 
