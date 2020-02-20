@@ -10,56 +10,76 @@ import UIKit
 
 class ClassTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    struct Student {
-        var firstName: String
-        var secondName: String
-        var age: Int
-        var email: String
-    }
+    @IBOutlet weak var tableView: UITableView!
     
-    var arrayOfStudents = [
-        Student(firstName: "1", secondName: "11", age: 25, email: "email"),
-        Student(firstName: "2", secondName: "22", age: 25, email: "email"),
-        Student(firstName: "3", secondName: "33", age: 25, email: "email"),
-        Student(firstName: "4", secondName: "44", age: 25, email: "email"),
-        Student(firstName: "5", secondName: "55", age: 20, email: "email"),
-        Student(firstName: "6", secondName: "66", age: 20, email: "email"),
-        Student(firstName: "7", secondName: "77", age: 20, email: "email"),
-        Student(firstName: "8", secondName: "88", age: 20, email: "email"),
-        Student(firstName: "9", secondName: "99", age: 30, email: "email"),
-        Student(firstName: "9", secondName: "100", age: 30, email: "email"),
-        Student(firstName: "10", secondName: "110", age: 30, email: "email"),
-        Student(firstName: "11", secondName: "120", age: 30, email: "email"),
-        Student(firstName: "12", secondName: "130", age: 30, email: "email"),
-        Student(firstName: "13", secondName: "140", age: 30, email: "email"),
-        Student(firstName: "14", secondName: "150", age: 30, email: "email"),
-    ]
+    var studentInfo = [String]()
+    var studentNames = [String]()
+    var studentSurnames = [String]()
+    var studentGenders = [String]()
+    var fileData = ""
+    var studentName = ""
+    var studentSurname = ""
+    var studentAge = ""
+    var studentGender = ""
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        arrayOfStudents.count
+        
+        studentNames = DataManagement.studentNamesForTableView(DataManagement(studentNumber: 0))()
+        return studentNames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let studentCell = tableView.dequeueReusableCell(withIdentifier: "student", for: indexPath)
-        
-        let studentFN = arrayOfStudents[indexPath.row]
-        studentCell.textLabel?.text = studentFN.firstName
-        
+        var studentCell: UITableViewCell
+        studentGenders = DataManagement.studentGenderForTableView(DataManagement(studentNumber: 0))()
+        switch studentGenders[indexPath.row] {
+        case "ж":
+            studentCell = tableView.dequeueReusableCell(withIdentifier: FemaleXIBTableViewCell.id, for: indexPath)
+        default:
+            studentCell = tableView.dequeueReusableCell(withIdentifier: "student", for: indexPath)
+        }
+        studentSurnames = DataManagement.studentSurnamesForTableView(DataManagement(studentNumber: 0))()
+        studentCell.textLabel?.text = "\(studentNames[indexPath.row]) \(studentSurnames[indexPath.row])"
         return studentCell
         
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           performSegue(withIdentifier: "profileStudentVC", sender: nil)
-       }
+        tableView.deselectRow(at: indexPath, animated: true)
+        studentInfo = DataManagement.detailStudentData(DataManagement(studentNumber: indexPath.row))()
+        studentName = studentInfo[0]
+        studentSurname = studentInfo[1]
+        studentAge = studentInfo[2]
+        studentGender = studentInfo[3]
+        performSegue(withIdentifier: "profileFromTable", sender: nil)
+        }
+        
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            arrayOfStudents.remove(at: indexPath.row)
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        }
+//    }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+//        tableView.register(CodeTableViewCell.self, forCellReuseIdentifier: CodeTableViewCell.id)
+        tableView.register(UINib(nibName: "FemaleXIBTableViewCell", bundle: nil), forCellReuseIdentifier: FemaleXIBTableViewCell.id)
     }
     
-
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            let destinationVC = segue.destination as? ProfileViewController
+        
+            destinationVC?.studentName = studentName
+            destinationVC?.studentSurname = studentSurname
+            destinationVC?.studentAge = studentAge
+            destinationVC?.studentGender = studentGender
+            }
+    
 }
+

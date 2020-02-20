@@ -17,19 +17,12 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-            welcomeLabel.text = "Welcome, \(userName ?? "Incognito")!"
-        
+        welcomeLabel.text = "Welcome, \(userName ?? "Incognito")!"
         self.navigationItem.setHidesBackButton(true, animated: true)
 
     }
     
     @IBAction func profileButton(_ sender: Any) {
-//        let profileVC = ProfileViewController()
-//
-//        present(profileVC, animated: true, completion: nil)
-    //  navigationController?.pushViewController(profileVC, animated: true)
-       // performSegue(withIdentifier: "profileVC", sender: nil)
-        
     }
     
     @IBAction func ClassButton(_ sender: Any) {
@@ -37,9 +30,20 @@ class WelcomeViewController: UIViewController {
         //
         //        //present(testVC, animated: true, completion: nil)
         //        navigationController?.pushViewController(testVC, animated: true)
+//        guard let vc = storyboard?.instantiateViewController(identifier: "table") else {return}
+//            print("!!!!!!!!!!!!!!!!!!")
+//            //vc.studentName.text = arrayOfStudents[indexPath.row].firstName
+//            navigationController?.pushViewController(vc, animated: true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let profileVC = segue.destination as? ProfileViewController
 
+        profileVC?.studentName = "Oleg"
+        profileVC?.studentSurname = "Satishur"
+        profileVC?.studentAge = "22"
+        profileVC?.studentGender = "Male"
+    }
 }
 
 
