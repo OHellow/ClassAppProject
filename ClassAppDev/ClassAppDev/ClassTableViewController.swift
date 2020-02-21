@@ -21,6 +21,9 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
     var studentSurname = ""
     var studentAge = ""
     var studentGender = ""
+    var ar = [String]()
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -80,6 +83,5 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
             destinationVC?.studentAge = studentAge
             destinationVC?.studentGender = studentGender
             }
-    
 }
 

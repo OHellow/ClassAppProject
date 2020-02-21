@@ -52,12 +52,12 @@ class AuthorizationViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let navigationController = segue.destination as? UINavigationController
-//        let distinationViewController = navigationController?.viewControllers.first as? WelcomeViewController
-//
-//        distinationViewController?.userName = loginTextField.text
-        let distinationViewController = segue.destination as? WelcomeViewController
+        let navigationController = segue.destination as? UINavigationController
+        let distinationViewController = navigationController?.viewControllers.first as? WelcomeViewController
+
         distinationViewController?.userName = loginTextField.text
+//        let distinationViewController = segue.destination as? WelcomeViewController
+//        distinationViewController?.userName = loginTextField.text
         }
 }
 
