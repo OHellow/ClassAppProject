@@ -18,16 +18,16 @@ class DataManagement {
     var surname = ""
     var age = ""
     var gender = ""
-    var studentNumber: Int
+//    var studentNumber: Int
     var studentArray = [String]()
     var studentNames = [String]()
     var studentSurnames = [String]()
     var studentGenders = [String]()
     var studentGender = Student.Gender.noInfo
     
-    init(studentNumber: Int) {
-        self.studentNumber = studentNumber
-    }
+//    init(studentNumber: Int) {
+//        self.studentNumber = studentNumber
+//    }
     
     func collectDataFromFile() {
         if let path = Bundle.main.path(forResource: "Names", ofType: "txt"){
@@ -57,10 +57,12 @@ class DataManagement {
                 }
                 arrayOfStudents.append(Student(name: String(splittedData[0]), surname: String(splittedData[1]), age: String(splittedData[2]), gender: studentGender))
             }
+            
         }
         
-        func detailStudentData() -> [String] {
+    func detailStudentData(studentNumber: Int) -> [String] {
             collectStundentsData()
+            studentArray = []
             name = arrayOfStudents[studentNumber].name
             surname = arrayOfStudents[studentNumber].surname
             age = arrayOfStudents[studentNumber].age
@@ -80,32 +82,15 @@ class DataManagement {
             return studentArray
         }
         
-        func studentNamesForTableView() -> [String] {
-            collectStundentsData()
-    //        arrayOfFullStudantsData.forEach { (student) in
-    //            studentNames.append(String(student[0]))
-    //        }
-            arrayOfStudents.forEach { (names) in
-                studentNames.append(names.name)
-            }
-            return studentNames
-        }
-        
-        func studentSurnamesForTableView() -> [String] {
-            collectStundentsData()
-            arrayFullInfo.forEach { (student) in
-                studentSurnames.append(String(student[1]))
-            }
-            return studentSurnames
-        }
-        
         func studentGenderForTableView() -> [String] {
-            collectStundentsData()
+            //collectStundentsData()
             arrayFullInfo.forEach { (student) in
                 studentGenders.append(String(student[3]))
             }
             return studentGenders
         }
+    
+   
         
     }
 

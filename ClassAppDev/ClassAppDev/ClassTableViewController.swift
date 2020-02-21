@@ -13,8 +13,8 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var tableView: UITableView!
     
     var studentInfo = [String]()
-    var studentNames = [String]()
-    var studentSurnames = [String]()
+    var studentNames = ""
+    var studentSurnames = ""
     var studentGenders = [String]()
     var fileData = ""
     var studentName = ""
@@ -23,33 +23,35 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
     var studentGender = ""
     var ar = [String]()
     
+    var sample = DataManagement()
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        studentNames = DataManagement.studentNamesForTableView(DataManagement(studentNumber: 0))()
-        return studentNames.count
+        sample.collectStundentsData()
+        //let studs = sample.studentNamesForTableView()
+        return sample.arrayOfStudents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var studentCell: UITableViewCell
-        studentGenders = DataManagement.studentGenderForTableView(DataManagement(studentNumber: 0))()
+        let studentGenders = sample.studentGenderForTableView()
         switch studentGenders[indexPath.row] {
         case "ж":
             studentCell = tableView.dequeueReusableCell(withIdentifier: FemaleXIBTableViewCell.id, for: indexPath)
         default:
             studentCell = tableView.dequeueReusableCell(withIdentifier: "student", for: indexPath)
         }
-        studentSurnames = DataManagement.studentSurnamesForTableView(DataManagement(studentNumber: 0))()
-        studentCell.textLabel?.text = "\(studentNames[indexPath.row]) \(studentSurnames[indexPath.row])"
+        studentSurnames = sample.arrayOfStudents[indexPath.row].surname
+        studentNames = sample.arrayOfStudents[indexPath.row].name
+        studentCell.textLabel?.text = "\(studentNames) \(studentSurnames)"
         return studentCell
         
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        studentInfo = DataManagement.detailStudentData(DataManagement(studentNumber: indexPath.row))()
+        studentInfo = sample.detailStudentData(studentNumber: indexPath.row)
         studentName = studentInfo[0]
         studentSurname = studentInfo[1]
         studentAge = studentInfo[2]
@@ -64,16 +66,12 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
 //        }
 //    }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
 //        tableView.register(CodeTableViewCell.self, forCellReuseIdentifier: CodeTableViewCell.id)
         tableView.register(UINib(nibName: "FemaleXIBTableViewCell", bundle: nil), forCellReuseIdentifier: FemaleXIBTableViewCell.id)
     }
-    
-    
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             let destinationVC = segue.destination as? ProfileViewController

@@ -94,7 +94,7 @@
                         <outlet property="loginTextField" destination="Djx-ha-jPL" id="dBO-sY-4XC"/>
                         <outlet property="passwordLabel" destination="Qv7-Zg-Ur1" id="avo-1o-fp8"/>
                         <outlet property="passwordTextField" destination="0aL-2c-Hmc" id="5HC-Dh-3SH"/>
-                        <segue destination="2gG-su-SFt" kind="presentation" identifier="mainVC" modalPresentationStyle="fullScreen" id="LgB-1I-4ca"/>
+                        <segue destination="rtA-nz-MUg" kind="presentation" identifier="mainVC" modalPresentationStyle="fullScreen" id="LgB-1I-4ca"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -361,21 +361,20 @@
             <point key="canvasLocation" x="4871.0144927536239" y="116.51785714285714"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="ZGs-gk-f3h">
+        <scene sceneID="OHk-Ta-kCw">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2gG-su-SFt" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rtA-nz-MUg" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="3DK-Ks-IjB"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8dW-Lp-nz9">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BST-74-doo">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Tpj-b0-NPb" kind="relationship" relationship="rootViewController" id="TBV-Cr-UTA"/>
+                        <segue destination="Tpj-b0-NPb" kind="relationship" relationship="rootViewController" id="T9s-S5-Ryz"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jni-tY-5ka" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7ab-wj-wLx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2576.811594202899" y="116.51785714285714"/>
         </scene>
