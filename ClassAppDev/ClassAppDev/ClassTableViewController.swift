@@ -12,38 +12,31 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var tableView: UITableView!
     
-    var studentInfo = [String]()
-    var studentNames = ""
-    var studentSurnames = ""
-    var studentGenders = [String]()
-    var fileData = ""
     var studentName = ""
     var studentSurname = ""
     var studentAge = ""
     var studentGender = ""
-    var ar = [String]()
+    var ar = [Student]() //во viewDidLoad ar = sample.collectStundentsData(), чтобы собрать студентиков
     
     var sample = DataManagement()
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sample.collectStundentsData()
-        //let studs = sample.studentNamesForTableView()
-        return sample.arrayOfStudents.count
+        print(ar.count)
+        return ar.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var studentCell: UITableViewCell
-        let studentGenders = sample.studentGenderForTableView()
-        switch studentGenders[indexPath.row] {
-        case "ж":
+        let studentGenders = sample.arrayOfStudents[indexPath.row].gender
+        switch studentGenders {
+        case .female:
             studentCell = tableView.dequeueReusableCell(withIdentifier: FemaleXIBTableViewCell.id, for: indexPath)
         default:
             studentCell = tableView.dequeueReusableCell(withIdentifier: "student", for: indexPath)
         }
-        studentSurnames = sample.arrayOfStudents[indexPath.row].surname
-        studentNames = sample.arrayOfStudents[indexPath.row].name
+        let studentSurnames = sample.arrayOfStudents[indexPath.row].surname
+        let studentNames = sample.arrayOfStudents[indexPath.row].name
         studentCell.textLabel?.text = "\(studentNames) \(studentSurnames)"
         return studentCell
         
@@ -51,24 +44,32 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        studentInfo = sample.detailStudentData(studentNumber: indexPath.row)
-        studentName = studentInfo[0]
-        studentSurname = studentInfo[1]
-        studentAge = studentInfo[2]
-        studentGender = studentInfo[3]
+        studentName = sample.arrayOfStudents[indexPath.row].name
+        studentSurname = sample.arrayOfStudents[indexPath.row].surname
+        studentAge = sample.arrayOfStudents[indexPath.row].age
+        let gend = sample.arrayOfStudents[indexPath.row].gender
+        switch gend {
+        case .male:
+            studentGender = "Male"
+        case .female:
+            studentGender = "Female"
+        default:
+            studentGender = "No info"
+        }
         performSegue(withIdentifier: "profileFromTable", sender: nil)
         }
         
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            arrayOfStudents.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//        }
-//    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            sample.arrayOfStudents.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        ar = sample.collectStundentsData()
 //        tableView.register(CodeTableViewCell.self, forCellReuseIdentifier: CodeTableViewCell.id)
         tableView.register(UINib(nibName: "FemaleXIBTableViewCell", bundle: nil), forCellReuseIdentifier: FemaleXIBTableViewCell.id)
     }

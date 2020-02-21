@@ -44,13 +44,5 @@ class Validator {
 //                       self.present(alertController, animated: true, completion: nil)
 //           }
 //       }
-//           func checkPassword(textFieldPassword: UITextField) {
-//               if textFieldPassword.text!.count < 3 {
-//
-//                           let alertController = UIAlertController(title: "Alert", message: "The password is too short", preferredStyle: .alert)
-//                           let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-//                           alertController.addAction(cancelAction)
-//                           self.present(alertController, animated: true, completion: nil)
-//               }
-//           }
+
 
