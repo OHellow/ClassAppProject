@@ -16,13 +16,13 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
     var studentSurname = ""
     var studentAge = ""
     var studentGender = ""
-    var ar = [Student]() //во viewDidLoad ar = sample.collectStundentsData(), чтобы собрать студентиков
     
     var sample = DataManagement()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(ar.count)
-        return ar.count
+        
+        print(sample.arrayOfStudents.count)
+        return sample.arrayOfStudents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,15 +61,18 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            //print("deleted")
             sample.arrayOfStudents.remove(at: indexPath.row)
+            //print(sample.arrayOfStudents)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            //print(tableView.numberOfSections)
             tableView.reloadData()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ar = sample.collectStundentsData()
+        sample.collectStundentsData()
 //        tableView.register(CodeTableViewCell.self, forCellReuseIdentifier: CodeTableViewCell.id)
         tableView.register(UINib(nibName: "FemaleXIBTableViewCell", bundle: nil), forCellReuseIdentifier: FemaleXIBTableViewCell.id)
     }
@@ -81,6 +84,6 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
             destinationVC?.studentSurname = studentSurname
             destinationVC?.studentAge = studentAge
             destinationVC?.studentGender = studentGender
-            }
+    }
 }
 

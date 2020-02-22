@@ -33,7 +33,7 @@ class DataManagement {
         }
     }
     
-    func collectStundentsData() -> [Student]  {
+    func collectStundentsData() {//-> [Student]  {
    
             collectDataFromFile()
             arrayFromFile = allStudentString.split(separator: " ")
@@ -49,7 +49,7 @@ class DataManagement {
                 }
                 arrayOfStudents.append(Student(name: String(splittedData[0]), surname: String(splittedData[1]), age: String(splittedData[2]), gender: studentGender))
             }
-            return arrayOfStudents
+            //return arrayOfStudents
     }
 }
 
