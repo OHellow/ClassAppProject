@@ -14,12 +14,11 @@ class DataManagement {
     var arrayFullInfo = [[Substring]]()
     var arrayOfStudents = [Student]()
     var allStudentString: String = ""
-    var name = ""
-    var surname = ""
-    var age = ""
-    var gender = ""
-    var studentArray = [String]()
     var studentGender = Student.Gender.noInfo
+    
+    init() {
+        collectStundentsData()
+    }
     
     func collectDataFromFile() {
         if let path = Bundle.main.path(forResource: "Names", ofType: "txt"){
