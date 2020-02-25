@@ -39,8 +39,8 @@ class WelcomeViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let profileVC = segue.destination as? ProfileViewController
 
-        profileVC?.studentName = userName ?? "" //"Oleg"
-        profileVC?.studentSurname = ""//"Satishur"
+        profileVC?.studentName = "Oleg"
+        profileVC?.studentSurname = "Satishur"
         profileVC?.studentAge = "22"
         profileVC?.studentGender = "Male"
     }
