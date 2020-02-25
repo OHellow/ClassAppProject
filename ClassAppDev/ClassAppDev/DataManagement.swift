@@ -10,17 +10,15 @@ import Foundation
 
 class DataManagement {
     
-    var arrayFromFile = [Substring]()
-    var arrayFullInfo = [[Substring]]()
     var arrayOfStudents = [Student]()
-    var allStudentString: String = ""
-    var studentGender = Student.Gender.noInfo
-    
+
     init() {
         collectStundentsData()
     }
-    
-    func collectDataFromFile() {
+
+    func collectDataFromFile() -> String {
+        var allStudentString: String = ""
+
         if let path = Bundle.main.path(forResource: "Names", ofType: "txt"){
             do {
                 try allStudentString = String(contentsOfFile: path)
@@ -30,25 +28,29 @@ class DataManagement {
         } else {
             print("File not found")
         }
+        return allStudentString
     }
-    
+
     func collectStundentsData() {//-> [Student]  {
-   
-            collectDataFromFile()
-            arrayFromFile = allStudentString.split(separator: " ")
-            arrayFromFile.forEach { studentData in
-                arrayFullInfo.append(studentData.split(separator: "."))
+        var arrayFromFile = [Substring]()
+        var arrayFullInfo = [[Substring]]()
+
+        let allStudentString = collectDataFromFile()
+        arrayFromFile = allStudentString.split(separator: " ")
+        arrayFromFile.forEach { studentData in
+            arrayFullInfo.append(studentData.split(separator: "."))
+        }
+        arrayFullInfo.forEach { (splittedData) in
+            var studentGender: Student.Gender
+            switch splittedData[3] {
+            case "м": studentGender = .male
+            case "ж": studentGender = .female
+            default:
+                studentGender.self = .noInfo
             }
-            arrayFullInfo.forEach { (splittedData) in
-                switch splittedData[3] {
-                case "м": studentGender = .male
-                case "ж": studentGender = .female
-                default:
-                    studentGender.self = .noInfo
-                }
-                arrayOfStudents.append(Student(name: String(splittedData[0]), surname: String(splittedData[1]), age: String(splittedData[2]), gender: studentGender))
-            }
-            //return arrayOfStudents
+            arrayOfStudents.append(Student(name: String(splittedData[0]), surname: String(splittedData[1]), age: String(splittedData[2]), gender: studentGender))
+        }
+        //return arrayOfStudents
     }
 }
 

@@ -17,26 +17,26 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
     var studentAge = ""
     var studentGender = ""
     
-    var sample = DataManagement()
+    var mockupData = DataManagement()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        print(sample.arrayOfStudents.count)
-        return sample.arrayOfStudents.count
+        print(mockupData.arrayOfStudents.count)
+        return mockupData.arrayOfStudents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var studentCell: UITableViewCell
-        let studentGenders = sample.arrayOfStudents[indexPath.row].gender
+        let studentGenders = mockupData.arrayOfStudents[indexPath.row].gender
         switch studentGenders {
         case .female:
             studentCell = tableView.dequeueReusableCell(withIdentifier: FemaleXIBTableViewCell.id, for: indexPath)
         default:
             studentCell = tableView.dequeueReusableCell(withIdentifier: "student", for: indexPath)
         }
-        let studentSurnames = sample.arrayOfStudents[indexPath.row].surname
-        let studentNames = sample.arrayOfStudents[indexPath.row].name
+        let studentSurnames = mockupData.arrayOfStudents[indexPath.row].surname
+        let studentNames = mockupData.arrayOfStudents[indexPath.row].name
         studentCell.textLabel?.text = "\(studentNames) \(studentSurnames)"
         return studentCell
         
@@ -44,10 +44,11 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        studentName = sample.arrayOfStudents[indexPath.row].name
-        studentSurname = sample.arrayOfStudents[indexPath.row].surname
-        studentAge = sample.arrayOfStudents[indexPath.row].age
-        let gend = sample.arrayOfStudents[indexPath.row].gender
+        let student = mockupData.arrayOfStudents[indexPath.row]
+        studentName = student.name
+        studentSurname = student.surname
+        studentAge = student.age
+        let gend = student.gender
         switch gend {
         case .male:
             studentGender = "Male"
@@ -62,7 +63,7 @@ class ClassTableViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //print("deleted")
-            sample.arrayOfStudents.remove(at: indexPath.row)
+            mockupData.arrayOfStudents.remove(at: indexPath.row)
             //print(sample.arrayOfStudents)
             tableView.deleteRows(at: [indexPath], with: .fade)
             //print(tableView.numberOfSections)
