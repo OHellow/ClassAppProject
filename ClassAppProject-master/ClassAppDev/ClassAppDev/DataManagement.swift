@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class DataManagement: NSObject, UITableViewDataSource {
+class DataManagement: NSObject {
     
     var arrayOfStudents = [Student]()
 
@@ -55,13 +55,18 @@ class DataManagement: NSObject, UITableViewDataSource {
         //return arrayOfStudents
     }
     
+    
+}
+
+extension DataManagement: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
            
            print(arrayOfStudents.count)
            return arrayOfStudents.count
        }
        
-       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
            
            var studentCell: UITableViewCell
            let student = arrayOfStudents[indexPath.row]
@@ -85,6 +90,7 @@ class DataManagement: NSObject, UITableViewDataSource {
             tableView.reloadData()
         }
     }
+    
 }
 
 

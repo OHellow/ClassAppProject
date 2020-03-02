@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ClassTableViewController: UIViewController, UITableViewDelegate {
+class ClassTableViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -19,30 +19,11 @@ class ClassTableViewController: UIViewController, UITableViewDelegate {
     
     var mockupData = DataManagement()
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let student = mockupData.arrayOfStudents[indexPath.row]
-        studentName = student.name
-        studentSurname = student.surname
-        studentAge = student.age
-        let gend = student.gender
-        switch gend {
-        case .male:
-            studentGender = "Male"
-        case .female:
-            studentGender = "Female"
-        default:
-            studentGender = "No info"
-        }
-        performSegue(withIdentifier: "profileFromTable", sender: nil)
-        }
-        
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        tableView.register(CodeTableViewCell.self, forCellReuseIdentifier: CodeTableViewCell.id)
         tableView.register(UINib(nibName: "FemaleXIBTableViewCell", bundle: nil), forCellReuseIdentifier: FemaleXIBTableViewCell.id)
-        tableView.dataSource = mockupData
+        tableView.dataSource = mockupData 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -53,5 +34,27 @@ class ClassTableViewController: UIViewController, UITableViewDelegate {
             destinationVC?.studentAge = studentAge
             destinationVC?.studentGender = studentGender
     }
+}
+
+extension ClassTableViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
+    let student = mockupData.arrayOfStudents[indexPath.row]
+    studentName = student.name
+    studentSurname = student.surname
+    studentAge = student.age
+    let gend = student.gender
+    switch gend {
+    case .male:
+        studentGender = "Male"
+    case .female:
+        studentGender = "Female"
+    default:
+        studentGender = "No info"
+    }
+    performSegue(withIdentifier: "profileFromTable", sender: nil)
+    }
+    
 }
 
