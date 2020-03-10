@@ -25,6 +25,8 @@ class AuthorizationViewController: UIViewController {
     
     @IBAction func LogInButton(_ sender: Any) {
         
+        ProfileManager.shared.login = loginTextField.text ?? ""
+        ProfileManager.shared.password = passwordTextField.text ?? ""
         performSegue(withIdentifier: "mainVC", sender: nil)
     }
     
@@ -51,14 +53,15 @@ class AuthorizationViewController: UIViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let navigationController = segue.destination as? UINavigationController
-        let distinationViewController = navigationController?.viewControllers.first as? WelcomeViewController
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let navigationController = segue.destination as? UINavigationController
+//        let distinationViewController = navigationController?.viewControllers.first as? WelcomeViewController
 
-        distinationViewController?.userName = loginTextField.text
+    
+        //distinationViewController?.userName = loginTextField.text
 //        let distinationViewController = segue.destination as? WelcomeViewController
 //        distinationViewController?.userName = loginTextField.text
-        }
+//        }
 }
 
 

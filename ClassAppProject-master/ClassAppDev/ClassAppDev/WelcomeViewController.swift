@@ -12,12 +12,12 @@ class WelcomeViewController: UIViewController {
 
     @IBOutlet weak var welcomeLabel: UILabel!
     
-    var userName: String?
+    var userName = ProfileManager.shared.login
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        welcomeLabel.text = "Welcome, \(userName ?? "Incognito")!"
+        welcomeLabel.text = "Welcome, \(userName)!"
         self.navigationItem.setHidesBackButton(true, animated: true)
 
     }
@@ -39,8 +39,8 @@ class WelcomeViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let profileVC = segue.destination as? ProfileViewController
 
-        profileVC?.studentName = userName ?? "" //"Oleg"
-        profileVC?.studentSurname = ""//"Satishur"
+        profileVC?.studentName = userName //"Oleg"
+        profileVC?.studentSurname = "Satishur"//"Satishur"
         profileVC?.studentAge = "22"
         profileVC?.studentGender = "Male"
     }
