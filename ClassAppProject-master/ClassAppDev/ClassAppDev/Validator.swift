@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+// swiftlint:disable all
 class Validator {
     
     func isPasswordValid(_ value: String) -> Bool {

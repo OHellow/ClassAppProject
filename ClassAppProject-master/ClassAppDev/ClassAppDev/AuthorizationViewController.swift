@@ -5,7 +5,7 @@
 //  Created by Satsishur on 17.02.2020.
 //  Copyright © 2020 swiftlesson2. All rights reserved.
 //
-
+// swiftlint:disable identifier_name
 import UIKit
 
 class AuthorizationViewController: UIViewController {
@@ -24,12 +24,10 @@ class AuthorizationViewController: UIViewController {
     }
     
     @IBAction func LogInButton(_ sender: Any) {
-        
         ProfileManager.shared.login = loginTextField.text ?? ""
         ProfileManager.shared.password = passwordTextField.text ?? ""
         performSegue(withIdentifier: "mainVC", sender: nil)
     }
-    
     
     @IBAction func loginTFEditingChanged(login sender: UITextField) {
         //из класса Validator проверяем логин
@@ -52,12 +50,9 @@ class AuthorizationViewController: UIViewController {
             button.isEnabled = false
         }
     }
-    
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        let navigationController = segue.destination as? UINavigationController
 //        let distinationViewController = navigationController?.viewControllers.first as? WelcomeViewController
-
-    
         //distinationViewController?.userName = loginTextField.text
 //        let distinationViewController = segue.destination as? WelcomeViewController
 //        distinationViewController?.userName = loginTextField.text
