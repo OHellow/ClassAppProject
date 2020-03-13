@@ -16,7 +16,6 @@ class ClassTableViewController: UIViewController {
     var studentSurname = ""
     var studentAge = ""
     var studentGender = ""
-    
     var mockupData = DataManagement()
     
     override func viewDidLoad() {
@@ -28,7 +27,8 @@ class ClassTableViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             let destinationVC = segue.destination as? ProfileViewController
-        
+            let profileTypeNumber = Int.random(in: 1...3)
+            destinationVC?.profileType = profileTypeNumber
             destinationVC?.studentName = studentName
             destinationVC?.studentSurname = studentSurname
             destinationVC?.studentAge = studentAge
@@ -37,7 +37,6 @@ class ClassTableViewController: UIViewController {
 }
 
 extension ClassTableViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     let student = mockupData.arrayOfStudents[indexPath.row]
@@ -55,6 +54,4 @@ extension ClassTableViewController: UITableViewDelegate {
     }
     performSegue(withIdentifier: "profileFromTable", sender: nil)
     }
-    
 }
-

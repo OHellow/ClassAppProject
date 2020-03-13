@@ -351,6 +351,7 @@
                     <connections>
                         <outlet property="ageLabel" destination="j6a-a6-Ev4" id="Bsp-Lx-cQb"/>
                         <outlet property="genderLabel" destination="9zP-Hp-DR8" id="sIO-0y-3ll"/>
+                        <outlet property="image" destination="5D6-Dk-i5d" id="x6t-67-l9S"/>
                         <outlet property="infoLabel" destination="laN-Yb-nU4" id="z2m-lC-gp8"/>
                         <outlet property="nameLabel" destination="NaM-w5-KCd" id="ilx-G1-Tn3"/>
                         <outlet property="surnameLabel" destination="91G-gM-5U5" id="ELR-tc-VBG"/>

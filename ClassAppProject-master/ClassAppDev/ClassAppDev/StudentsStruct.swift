@@ -9,7 +9,6 @@
 import Foundation
 
 struct Student {
-    
     var name: String
     var surname: String
     var age: String
@@ -20,5 +19,4 @@ struct Student {
         case female
         case noInfo
     }
-    
 }
