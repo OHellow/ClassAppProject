@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var image: UIImageView!
     
-    var profileType = 3
+    var profileType = Int()
     var studentName = "Name"
     var studentSurname = "Surname"
     var studentAge = "Age"
@@ -31,16 +31,19 @@ class ProfileViewController: UIViewController {
         ageLabel.text = "Age: \(studentAge)"
         genderLabel.text = "Gender: \(studentGender)"
         infoLabel.text = info
+        image.frame.size = CGSize(width: 128, height: 128)
+        image.layer.borderWidth = 3.0
+        image.layer.borderColor = UIColor.lightGray.cgColor
+        image.layer.cornerRadius = 64
+        image.clipsToBounds = true
         profileTypeFunc()
     }
-    /*
-     Тип профиля выбирается рандомно в WelcomeViewControlller (метод prepare для кнопки Профиля) и ClassTableViewController (метод prepare для ячейки), значение записывается в переменную profileType
-     */
+   
     func profileTypeFunc() {
         switch profileType {
-               case 1: //этот case использует constraints из storyboard
-                   break
-               case 2:
+        case 1: //использует storyboard
+                  break
+        case 2:
                    view.addSubview(image)
                    image.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -90).isActive = true
                    image.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -230).isActive = true
@@ -54,8 +57,8 @@ class ProfileViewController: UIViewController {
                    genderLabel.anchor(top: ageLabel.bottomAnchor, leading: image.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 50, bottom: 0, right: 0))
                    view.addSubview(infoLabel)
                    infoLabel.anchor(top: genderLabel.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 20, bottom: 0, right: -20))
-                   break
-               case 3:
+                   
+        case 3:
                    view.addSubview(nameLabel)
                    nameLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 30, left: 30, bottom: 0, right: 0))
                    view.addSubview(surnameLabel)
@@ -69,7 +72,7 @@ class ProfileViewController: UIViewController {
                    image.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
                    view.addSubview(infoLabel)
                    infoLabel.anchor(top: genderLabel.bottomAnchor, leading: image.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, padding: .init(top: 20, left: 170, bottom: 0, right: -20))
-                   break
+                   
                default: break
                }
     }

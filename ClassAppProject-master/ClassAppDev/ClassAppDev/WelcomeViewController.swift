@@ -11,8 +11,9 @@ import UIKit
 class WelcomeViewController: UIViewController {
 
     @IBOutlet weak var welcomeLabel: UILabel!
-    
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     var userName = ProfileManager.shared.login
+    var profileTypeNumber = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,18 +25,25 @@ class WelcomeViewController: UIViewController {
         }
     
     @IBAction func ClassButton(_ sender: Any) {
-        //        let testVC = TestSampleViewController(testNumberLabel: 1)
-        //        //present(testVC, animated: true, completion: nil)
-        //        navigationController?.pushViewController(testVC, animated: true)
-//        guard let vc = storyboard?.instantiateViewController(identifier: "table") else {return}
-//            print("!!!!!!!!!!!!!!!!!!")
-//            //vc.studentName.text = arrayOfStudents[indexPath.row].firstName
-//            navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func segmentView(_ sender: Any) {
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            profileTypeNumber = 1
+        case 1:
+            profileTypeNumber = 2
+        case 2:
+            profileTypeNumber = 3
+        default:
+            break
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let profileVC = segue.destination as? ProfileViewController
-        let profileTypeNumber = Int.random(in: 1...3)
+        let classVC = segue.destination as? ClassTableViewController
+        classVC?.profileTypeNumber = profileTypeNumber
         profileVC?.profileType = profileTypeNumber
         profileVC?.studentName = userName //"Oleg"
         profileVC?.studentSurname = "Satishur"//"Satishur"
@@ -43,4 +51,3 @@ class WelcomeViewController: UIViewController {
         profileVC?.studentGender = "Male"
     }
 }
-

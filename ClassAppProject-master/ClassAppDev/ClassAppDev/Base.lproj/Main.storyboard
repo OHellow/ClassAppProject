@@ -174,10 +174,27 @@
                                     <constraint firstItem="mD2-bh-kb7" firstAttribute="top" secondItem="16f-l1-ldV" secondAttribute="top" constant="8" id="xaF-jD-PlC"/>
                                 </constraints>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="i6L-FW-qav">
+                                <rect key="frame" x="141.66666666666666" y="176" width="130.99999999999997" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="abe-67-avC"/>
+                                    <constraint firstAttribute="width" constant="131" id="xkQ-qP-CBY"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="1"/>
+                                    <segment title="2"/>
+                                    <segment title="3"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentView:" destination="Tpj-b0-NPb" eventType="valueChanged" id="w0o-ll-fai"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="SHV-WX-YFQ" firstAttribute="top" secondItem="i6L-FW-qav" secondAttribute="bottom" constant="15" id="10W-xT-7cP"/>
                             <constraint firstItem="wKL-hS-HOc" firstAttribute="top" secondItem="Ft9-tE-R5H" secondAttribute="top" constant="20" id="P8g-ST-c9R"/>
+                            <constraint firstItem="i6L-FW-qav" firstAttribute="centerX" secondItem="Ft9-tE-R5H" secondAttribute="centerX" id="QNS-mr-7al"/>
                             <constraint firstItem="SHV-WX-YFQ" firstAttribute="centerX" secondItem="Ft9-tE-R5H" secondAttribute="centerX" id="TJf-AL-pXf"/>
                             <constraint firstItem="Ft9-tE-R5H" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="16f-l1-ldV" secondAttribute="bottom" constant="334" id="TUR-ih-sR3"/>
                             <constraint firstItem="wKL-hS-HOc" firstAttribute="centerX" secondItem="Ft9-tE-R5H" secondAttribute="centerX" id="XGY-dq-KmU"/>
@@ -189,6 +206,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="2HM-1q-O8f"/>
                     <connections>
+                        <outlet property="segmentedControl" destination="i6L-FW-qav" id="Hq1-VA-sAH"/>
                         <outlet property="welcomeLabel" destination="wKL-hS-HOc" id="UOG-UC-f2d"/>
                     </connections>
                 </viewController>
@@ -387,6 +405,6 @@
         <image name="workshop" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HJK-Gv-qCN"/>
+        <segue reference="JB4-M3-wLY"/>
     </inferredMetricsTieBreakers>
 </document>
