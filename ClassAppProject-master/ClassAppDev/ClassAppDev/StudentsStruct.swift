@@ -20,3 +20,9 @@ struct Student {
         case noInfo
     }
 }
+
+enum Profile {
+    case one
+    case two
+    case three
+}

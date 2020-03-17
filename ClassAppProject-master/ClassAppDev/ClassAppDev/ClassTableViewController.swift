@@ -17,17 +17,18 @@ class ClassTableViewController: UIViewController {
     var studentAge = ""
     var studentGender = ""
     var mockupData = DataManagement()
+    var profileTypeNumber = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 //        tableView.register(CodeTableViewCell.self, forCellReuseIdentifier: CodeTableViewCell.id)
-        tableView.register(UINib(nibName: "FemaleXIBTableViewCell", bundle: nil), forCellReuseIdentifier: FemaleXIBTableViewCell.id)
+        tableView.register(UINib(nibName: "FemaleXIBTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: FemaleXIBTableViewCell.id)
         tableView.dataSource = mockupData 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             let destinationVC = segue.destination as? ProfileViewController
-            let profileTypeNumber = Int.random(in: 1...3)
             destinationVC?.profileType = profileTypeNumber
             destinationVC?.studentName = studentName
             destinationVC?.studentSurname = studentSurname
