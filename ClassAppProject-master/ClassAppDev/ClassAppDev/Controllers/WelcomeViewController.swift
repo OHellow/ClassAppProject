@@ -42,7 +42,7 @@ class WelcomeViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let profileVC = segue.destination as? ProfileViewController
-        let classVC = segue.destination as? ClassTableViewController
+        let classVC = segue.destination as? ClassCollectionViewController
         classVC?.profileTypeNumber = profileTypeNumber
         profileVC?.profileType = profileTypeNumber
         profileVC?.studentName = userName //"Oleg"

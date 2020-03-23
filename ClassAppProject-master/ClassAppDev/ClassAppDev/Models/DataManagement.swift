@@ -5,7 +5,7 @@
 //  Created by Satsishur on 20.02.2020.
 //  Copyright © 2020 swiftlesson2. All rights reserved.
 //
-//swiftlint:disable identifier_name
+
 import Foundation
 import UIKit
 
@@ -59,7 +59,7 @@ class DataManagement: NSObject {
 extension DataManagement: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
            print(arrayOfStudents.count)
-           return arrayOfStudents.count
+           return arrayOfStudents.count 
        }
        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,14 +67,14 @@ extension DataManagement: UITableViewDataSource {
            let student = arrayOfStudents[indexPath.row]
         switch student.gender {
         case .female:
-               studentCell = tableView.dequeueReusableCell(withIdentifier: FemaleXIBTableViewCell.id, for: indexPath)
+               studentCell = tableView.dequeueReusableCell(withIdentifier: FemaleXIBTableViewCell.cellid, for: indexPath)
         default:
                studentCell = tableView.dequeueReusableCell(withIdentifier: "student", for: indexPath)
            }
         studentCell.textLabel?.text = "\(student.name) \(student.surname)"
            return studentCell
        }
-    
+
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             arrayOfStudents.remove(at: indexPath.row)

@@ -10,7 +10,7 @@ import UIKit
 
 class CodeTableViewCell: UITableViewCell {
 
-    static let id = "CodeTableViewCell"
+    static let cellid = "CodeTableViewCell"
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

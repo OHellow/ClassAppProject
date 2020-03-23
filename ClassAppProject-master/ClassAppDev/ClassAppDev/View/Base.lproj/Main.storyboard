@@ -160,7 +160,7 @@
                                         <state key="normal" title="Class"/>
                                         <connections>
                                             <action selector="ClassButton:" destination="Tpj-b0-NPb" eventType="touchUpInside" id="rFu-SB-odr"/>
-                                            <segue destination="SxC-j9-vec" kind="show" id="Cwt-DP-5yG"/>
+                                            <segue destination="oKR-4u-1xD" kind="show" id="fhp-4s-mdo"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -223,7 +223,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="thK-nQ-Eh1">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="student" textLabel="Tbc-GB-mHg" imageView="qDp-FO-cmj" style="IBUITableViewCellStyleDefault" id="9MX-nD-sqs">
@@ -273,6 +273,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G1c-7i-qGj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2145" y="987"/>
+        </scene>
+        <!--Class Collection View Controller-->
+        <scene sceneID="bpu-m8-h83">
+            <objects>
+                <viewController id="oKR-4u-1xD" customClass="ClassCollectionViewController" customModule="ClassAppDev" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sbe-Aj-K4Z">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Kuz-MZ-Dax"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kDA-Jk-ZXG"/>
+                    <connections>
+                        <segue destination="3a5-ly-0sC" kind="show" id="RRD-NH-BZX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZSI-yw-xSU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4068" y="999"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="xGT-Pe-YL0">
@@ -405,6 +424,6 @@
         <image name="workshop" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JB4-M3-wLY"/>
+        <segue reference="RRD-NH-BZX"/>
     </inferredMetricsTieBreakers>
 </document>
