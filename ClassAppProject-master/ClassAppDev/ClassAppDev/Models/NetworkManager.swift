@@ -13,7 +13,6 @@ class NetworkManager {
     
     static let shared = NetworkManager()
     var cellData: [SWPerson] = []
-    var peopleCount: Int?
     
     func fetchData(page: Int, completion: @escaping (Any?) -> Void) {
         let session = URLSession.shared
@@ -37,9 +36,7 @@ class NetworkManager {
                     (200...299).contains(response.statusCode)
                     else {return}
                 do {
-                    
                     let json = try JSONDecoder().decode(SWPeople.self, from: data)
-                    
                     json.people.forEach({print($0.name)})
                     completion(json)
                 } catch {

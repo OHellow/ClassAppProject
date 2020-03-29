@@ -29,7 +29,6 @@ class ClassCollectionViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-    
         for page in 2...5 {
             NetworkManager.shared.fetchData(page: page, completion: {(data) in
                 (data as? SWPeople)?.people.forEach({ClassCollectionViewController.characterData.append(SWPerson(name: $0.name, birth_year: $0.birth_year, mass: $0.mass, gender: $0.gender))})
