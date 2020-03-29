@@ -17,7 +17,7 @@ class AuthorizationViewController: UIViewController {
     @IBOutlet weak var passwordLabel: UILabel!
     
     var validation = Validator()
-    var counterOfPushes = 1
+    var counterOfPushes = 0
     let animationButton = UIButton()
     var xPosition = NSLayoutConstraint()
     var yPosition = NSLayoutConstraint()
@@ -27,6 +27,7 @@ class AuthorizationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initButton()
+        self.animationButton.isHidden = true //скрыл анимацию кнопки
     }
     
     @IBAction func LogInButton(_ sender: Any) {
@@ -74,8 +75,8 @@ class AuthorizationViewController: UIViewController {
     }
     
     @objc func buttonTapped() {
-        switch counterOfPushes {
-        case 1:
+        switch counterOfPushes % 4 {
+        case 0:
             widthOfButton.constant = 160
             UIView.animate(withDuration: 1,
                            delay: 0,
@@ -87,7 +88,7 @@ class AuthorizationViewController: UIViewController {
                             self.counterOfPushes += 1
                             self.view.layoutIfNeeded()
                 }, completion: nil)
-        case 2:
+        case 1:
             UIView.animate(withDuration: 1, delay: 0,
                        usingSpringWithDamping: 0.2,
                        initialSpringVelocity: 2.0,
@@ -103,7 +104,7 @@ class AuthorizationViewController: UIViewController {
                 self.animationButton.setTitleColor(.black, for: .normal)
                     }
             })
-        case 3:
+        case 2:
             xPosition.constant = 400
             UIView.animate(withDuration: 1,
                            delay: 0,
@@ -119,7 +120,7 @@ class AuthorizationViewController: UIViewController {
                         self.xPosition.constant = 0
                    }
         })
-        case 4:
+        case 3:
             restore()
             UIView.animate(withDuration: 1,
                            delay: 0,
@@ -128,7 +129,7 @@ class AuthorizationViewController: UIViewController {
                            options: .curveEaseIn,
                            animations: {[weak self] in
                         guard let self = self else {return}
-                        self.counterOfPushes = 1
+                        self.counterOfPushes += 1
                         self.view.layoutIfNeeded()
             }, completion: nil)
         default:

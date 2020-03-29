@@ -10,7 +10,7 @@ import UIKit
 
 class FemaleXIBTableViewCell: UITableViewCell {
 
-    static let id = "FemaleXIBTableViewCell"
+    static let cellid = "FemaleXIBTableViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
