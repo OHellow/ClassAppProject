@@ -27,7 +27,7 @@ class AuthorizationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initButton()
-        self.animationButton.isHidden = true
+        self.animationButton.isHidden = true //скрыл анимацию кнопки
     }
     
     @IBAction func LogInButton(_ sender: Any) {

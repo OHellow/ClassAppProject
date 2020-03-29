@@ -16,14 +16,26 @@ class ClassCollectionViewController: UIViewController {
     var studentAge = ""
     var studentGender = ""
     var profileTypeNumber = Int()
-    let cellData: [Student] = {
-        let students = DataManagement()
-        return students.arrayOfStudents
-    }()
-
+    static var characterData: [SWPerson] = []
+//    let cellData: [Student] = {   //массив для  names.txt
+//        let students = DataManagement()
+//        return students.arrayOfStudents
+//    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         createView()
+    }
+    
+    override func loadView() {
+        super.loadView()
+    
+        for page in 2...5 {
+            NetworkManager.shared.fetchData(page: page, completion: {(data) in
+                (data as? SWPeople)?.people.forEach({ClassCollectionViewController.characterData.append(SWPerson(name: $0.name, birth_year: $0.birth_year, mass: $0.mass, gender: $0.gender))})
+                self.collectionView.reloadData()
+            })
+        }
     }
     
     func createView() {
@@ -48,20 +60,25 @@ class ClassCollectionViewController: UIViewController {
 
 extension ClassCollectionViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cellData.count
+        print(ClassCollectionViewController.characterData.count)
+        return ClassCollectionViewController.characterData.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StudentCollectionViewCell.cellID, for: indexPath) as? StudentCollectionViewCell else {fatalError("Error")}
-        cell.studentName.text = cellData[indexPath.row].name
-        cell.studentSurname.text = cellData[indexPath.row].surname
-        switch cellData[indexPath.row].gender {
-        case .male:
+        let students = ClassCollectionViewController.characterData[indexPath.row]
+        cell.studentName.text = students.name
+        cell.studentSurname.text = students.birth_year
+        switch students.gender {
+        case "male":
             cell.imageView.image = UIImage(named: "student-3")
             cell.backgroundColor = .systemTeal
-        default:
+        case "female":
             cell.imageView.image = UIImage(named: "student-2")
             cell.backgroundColor = .systemPink
+        default:
+            cell.imageView.image = UIImage(named: "robot")
+            cell.backgroundColor = .systemYellow
         }
         return cell
     }
@@ -75,21 +92,22 @@ extension ClassCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let profileVC = storyboard?.instantiateViewController(identifier: "profileVC") as? ProfileViewController
-        let student = cellData[indexPath.row]
+        let student = ClassCollectionViewController.characterData[indexPath.row]
         profileVC?.profileType = profileTypeNumber
-        profileVC?.studentName = student.name
-        profileVC?.studentSurname = student.surname
-        profileVC?.studentAge = student.age
+        profileVC?.studentName = (profileVC?.studentName ?? "Name: ") + student.name
+        profileVC?.studentSurname = (profileVC?.studentSurname ?? "Mass: ") + student.mass
+        profileVC?.studentAge = (profileVC?.studentAge ?? "Birth date: ") + student.birth_year
         let gend = student.gender
         switch gend {
-        case .male:
-            profileVC?.studentGender = "Male"
+        case "male":
+            profileVC?.studentGender = (profileVC?.studentGender ?? "Gender: ") + gend
             profileVC?.imageName = "student-3"
-        case .female:
-            profileVC?.studentGender = "Female"
+        case "female":
+            profileVC?.studentGender = (profileVC?.studentGender ?? "Gender: ") + gend
             profileVC?.imageName = "student-2"
         default:
-            studentGender = "No info"
+            profileVC?.studentGender = (profileVC?.studentGender ?? "Gender: ") + gend
+            profileVC?.imageName = "robot"
         }
         self.navigationController?.pushViewController(profileVC!, animated: true)
     }

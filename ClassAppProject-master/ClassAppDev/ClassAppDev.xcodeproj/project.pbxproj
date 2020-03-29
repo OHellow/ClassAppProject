@@ -18,6 +18,7 @@
 		83331B6A23FF275500F4EC26 /* FemaleXIBTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83331B6823FF275500F4EC26 /* FemaleXIBTableViewCell.swift */; };
 		83331B6B23FF275500F4EC26 /* FemaleXIBTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83331B6923FF275500F4EC26 /* FemaleXIBTableViewCell.xib */; };
 		833502B424291661009709F8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 833502B324291661009709F8 /* .swiftlint.yml */; };
+		833502B8242A6E92009709F8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833502B7242A6E92009709F8 /* NetworkManager.swift */; };
 		83419BFF2424F7F900AA3B33 /* ClassCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83419BFE2424F7F900AA3B33 /* ClassCollectionViewController.swift */; };
 		83419C012424FAE800AA3B33 /* StudentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83419C002424FAE800AA3B33 /* StudentCollectionViewCell.swift */; };
 		83F0F5FA23F9ECFB00A5090B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F0F5F923F9ECFB00A5090B /* AppDelegate.swift */; };
@@ -44,6 +45,7 @@
 		83331B6823FF275500F4EC26 /* FemaleXIBTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FemaleXIBTableViewCell.swift; sourceTree = "<group>"; };
 		83331B6923FF275500F4EC26 /* FemaleXIBTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FemaleXIBTableViewCell.xib; sourceTree = "<group>"; };
 		833502B324291661009709F8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		833502B7242A6E92009709F8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		83419BFE2424F7F900AA3B33 /* ClassCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCollectionViewController.swift; sourceTree = "<group>"; };
 		83419C002424FAE800AA3B33 /* StudentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCollectionViewCell.swift; sourceTree = "<group>"; };
 		83F0F5F623F9ECFB00A5090B /* ClassAppDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassAppDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				83331B6423FF0E1100F4EC26 /* DataManagement.swift */,
+				833502B7242A6E92009709F8 /* NetworkManager.swift */,
 				83331B5A23FC59A800F4EC26 /* CodeTableViewCell.swift */,
 				83331B6223FF017D00F4EC26 /* StudentsStruct.swift */,
 				83331B6023FEBE7100F4EC26 /* Validator.swift */,
@@ -306,6 +309,7 @@
 				83331B6723FF229200F4EC26 /* ProfileManager.swift in Sources */,
 				83F0F61023F9F26B00A5090B /* WelcomeViewController.swift in Sources */,
 				83F0F61223F9F27E00A5090B /* ProfileViewController.swift in Sources */,
+				833502B8242A6E92009709F8 /* NetworkManager.swift in Sources */,
 				83F0F5FA23F9ECFB00A5090B /* AppDelegate.swift in Sources */,
 				83F0F5FC23F9ECFB00A5090B /* SceneDelegate.swift in Sources */,
 			);

@@ -45,9 +45,9 @@ class WelcomeViewController: UIViewController {
         let classVC = segue.destination as? ClassCollectionViewController
         classVC?.profileTypeNumber = profileTypeNumber
         profileVC?.profileType = profileTypeNumber
-        profileVC?.studentName = userName //"Oleg"
-        profileVC?.studentSurname = "Satishur"//"Satishur"
-        profileVC?.studentAge = "22"
-        profileVC?.studentGender = "Male"
+        profileVC?.studentName = (profileVC?.studentName ?? "Name: ") + userName 
+        profileVC?.studentSurname = (profileVC?.studentSurname ?? "Mass: ") + "90"
+        profileVC?.studentAge = (profileVC?.studentAge ?? "Birth date: ") + "22"
+        profileVC?.studentGender = (profileVC?.studentGender ?? "Gender: ") + "Male"
     }
 }
