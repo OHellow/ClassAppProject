@@ -14,22 +14,27 @@ class NetworkManager {
     static let shared = NetworkManager()
     var cellData: [SWPerson] = []
     
-    func fetchData(page: Int, completion: @escaping (Any?) -> Void) {
+    func fetchData(page: String?, completion: @escaping (Any?) -> Void) {
+        
+        let ai = UIActivityIndicatorView()
+        ai.startAnimating()
+        //ai.stopAnimating()
         let session = URLSession.shared
-        let url = URL(string: "https://swapi.co/api/people/?page=\(page)") //else {return}
-        var components = URLComponents()
-        components.path = url!.path
-        components.scheme = url!.scheme
-        components.host = url!.host
-        components.queryItems = [
-            URLQueryItem(name: "page", value: String(page))
-        ]
-        var request = URLRequest(url: components.url!)
+        guard let nextPage = page else {return}
+        guard let url = URL(string: nextPage) else {return}
+//        var components = URLComponents()
+//        components.path = url!.path
+//        components.scheme = url!.scheme
+//        components.host = url!.host
+//        components.queryItems = [
+//            URLQueryItem(name: "page", value: String(page))
+//        ]
+        var request = URLRequest(url: url)
         request.httpMethod = "GET" // дает возможность управлять кэшем, выставлять таймаут и работать с GET/POST
         //        uploadTask - закачать
         //        dowmloadTask
         let task = session.dataTask(with: request) { (data, response, error) in
-            DispatchQueue.main.async {
+            
                 guard let  data = data else {return}
                 guard error == nil else {return}
                 guard let response = response as? HTTPURLResponse,
@@ -43,7 +48,6 @@ class NetworkManager {
                     print(error)
                 }
             }
-        }
         task.resume() //каждый раз, когда создаем реквесты, надо делать resume
     }
 }
@@ -59,6 +63,7 @@ struct SWPeople: Codable {
         case people = "results"
     }
 }
+
 struct SWPerson: Codable {
     let name: String
     let birth_year: String

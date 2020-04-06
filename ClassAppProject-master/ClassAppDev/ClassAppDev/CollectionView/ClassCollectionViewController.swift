@@ -11,11 +11,13 @@ import UIKit
 class ClassCollectionViewController: UIViewController {
 
     var collectionView: UICollectionView!
+    var activityIndicator = UIActivityIndicatorView()
     var studentName = ""
     var studentSurname = ""
     var studentAge = ""
     var studentGender = ""
     var profileTypeNumber = Int()
+    var nextPage: String?
     static var characterData: [SWPerson] = []
 //    let cellData: [Student] = {   //массив для  names.txt
 //        let students = DataManagement()
@@ -24,19 +26,16 @@ class ClassCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+            NetworkManager.shared.fetchData(page: "https://swapi.co/api/people/?page=1", completion: {(data) in
+                (data as? SWPeople)?.people.forEach({ClassCollectionViewController.characterData.append(SWPerson(name: $0.name, birth_year: $0.birth_year, mass: $0.mass, gender: $0.gender))})
+                self.nextPage = (data as? SWPeople)?.next
+                DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                }
+            })
         createView()
     }
-    
-    override func loadView() {
-        super.loadView()
-        for page in 2...5 {
-            NetworkManager.shared.fetchData(page: page, completion: {(data) in
-                (data as? SWPeople)?.people.forEach({ClassCollectionViewController.characterData.append(SWPerson(name: $0.name, birth_year: $0.birth_year, mass: $0.mass, gender: $0.gender))})
-                self.collectionView.reloadData()
-            })
-        }
-    }
-    
+        
     func createView() {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 10
@@ -54,17 +53,41 @@ class ClassCollectionViewController: UIViewController {
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        collectionView.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 }
 
-extension ClassCollectionViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ClassCollectionViewController:  UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print(ClassCollectionViewController.characterData.count)
         return ClassCollectionViewController.characterData.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.row % 10 == 0 { //ClassCollectionViewController.characterData.count - 1 {
+            activityIndicator.startAnimating()
+            NetworkManager.shared.fetchData(page: nextPage, completion: { [weak self] data in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+                if self.nextPage != (data as? SWPeople)?.next {
+                    (data as? SWPeople)?.people.forEach({ClassCollectionViewController.characterData.append(SWPerson(name: $0.name, birth_year: $0.birth_year, mass: $0.mass, gender: $0.gender))})
+                    self.nextPage = (data as? SWPeople)?.next
+                }
+                if self.nextPage == nil {
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
+                        //self.activityIndicator.isHidden = true
+                        self.collectionView.reloadData()
+                    }
+                }
+            })
+        }
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StudentCollectionViewCell.cellID, for: indexPath) as? StudentCollectionViewCell else {fatalError("Error")}
+        //можно сохранить ссылочки страниц swapi в массив и когда indexPath == 10, то подгружать новую. Использовать reloadData
         let students = ClassCollectionViewController.characterData[indexPath.row]
         cell.studentName.text = students.name
         cell.studentSurname.text = students.birth_year
@@ -80,6 +103,7 @@ extension ClassCollectionViewController: UICollectionViewDelegate, UICollectionV
             cell.backgroundColor = .systemYellow
         }
         return cell
+        
     }
 }
 

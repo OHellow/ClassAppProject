@@ -23,11 +23,68 @@ class AuthorizationViewController: UIViewController {
     var yPosition = NSLayoutConstraint()
     var widthOfButton = NSLayoutConstraint()
     var heightOfButton = NSLayoutConstraint()
+    var gestureView: MoveableView = {
+        let mv = MoveableView(frame: CGRect(x: 150, y: 500, width: 100, height: 100))
+        mv.backgroundColor = .red
+        return mv
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initButton()
         self.animationButton.isHidden = true //скрыл анимацию кнопки
+//        view.addSubview(TouchableView(frame: view.bounds))
+//        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(swiped))
+//        mv.addGestureRecognizer(swipeGesture)
+//        mv.isUserInteractionEnabled = false //можно отключить userInteraction - вьюшка видна, но нельзя использовать тапы (например при наслоении вьюшек)
+        view.addSubview(gestureView)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipe(_:)))
+        swipeLeft.direction = .left
+
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipe(_:)))
+        swipeRight.direction = .right
+
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipe(_:)))
+        swipeUp.direction = .up
+
+
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipe(_:)))
+        swipeDown.direction = .down
+        gestureView.addGestureRecognizer(swipeLeft)
+        gestureView.addGestureRecognizer(swipeRight)
+        gestureView.addGestureRecognizer(swipeUp)
+        gestureView.addGestureRecognizer(swipeDown)
+        
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(self.handlePinch(_:)))
+        gestureView.addGestureRecognizer(pinch)
+        gestureView.isUserInteractionEnabled = true
+    }
+    
+    @objc func handleSwipe(_ sender: UISwipeGestureRecognizer) {
+        guard let gestureView = sender.view else { return }
+        UIView.animate(withDuration: 0.3) {
+            if sender.direction == .right {
+                gestureView.backgroundColor = .yellow
+            }
+            else if sender.direction == .left {
+                gestureView.backgroundColor = .green
+            }
+            else if sender.direction == .up {
+                gestureView.backgroundColor = .systemTeal
+            }
+            else if sender.direction == .down {
+                gestureView.backgroundColor = .orange
+            }
+        }
+    }
+    
+    @objc func handlePinch(_ sender: UIPinchGestureRecognizer) {
+        guard let pinchView = sender.view else { return }
+        if sender.state == .began || sender.state == .changed {
+            pinchView.transform = pinchView.transform.scaledBy(x: sender.scale, y: sender.scale)
+            sender.scale = 1
+        }
     }
     
     @IBAction func LogInButton(_ sender: Any) {
@@ -143,3 +200,53 @@ class AuthorizationViewController: UIViewController {
         animationButton.layer.borderWidth = 0
     }
 }
+
+class TouchableView: UIView {
+    var firstTouchLocation = CGPoint(x: 0, y: 0)
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        print("Touches began: \(touches.count)")
+        firstTouchLocation =  touches.first?.location(in: self) ?? CGPoint(x: 0, y: 0)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        print("Touches moved: \(touches.count)")
+        guard let newpostion = touches.first?.location(in: self) else {return}
+        let verticlaPosition = (firstTouchLocation.y - newpostion.y) / 100
+        self.backgroundColor = UIColor(white: 0, alpha: verticlaPosition)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        print("Touches ended: \(touches.count)")
+    }
+}
+
+class MoveableView: UIView {
+    var firstTouchLocation = CGPoint(x: 0, y: 0)
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        print("Touches began: \(touches.count)")
+        firstTouchLocation =  touches.first?.location(in: self) ?? CGPoint(x: 0, y: 0)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        print("Touches moved: \(touches.count)")
+        guard let newpostion = touches.first?.location(in: self.superview) else {return}
+        self.frame = CGRect(x: newpostion.x - firstTouchLocation.x, y: newpostion.y - firstTouchLocation.y, width: 100, height: 100)
+    }
+    
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        super.touchesEnded(touches, with: event)
+//        print("Touches ended: \(touches.count)")
+//    }
+}
+
+
+          
+
+
